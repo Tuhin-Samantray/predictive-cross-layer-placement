@@ -6,3 +6,6 @@ data/processed/
 HANDOFF.md
 .ipynb_checkpoints/
 *.pt
+HANDOFF.md
+data/raw/
+data/processed/
