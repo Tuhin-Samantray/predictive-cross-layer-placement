@@ -1,0 +1,25 @@
+seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+data:
+  n_nodes: 12
+  step_minutes: 1
+  split: {train: 0.70, val: 0.15, test: 0.15}   # chronological
+
+forecast:
+  horizons: [1, 5, 15]
+  window: 30
+  epochs: 30
+  quantiles: [0.5, 0.9]        # for the risk-aware variant
+
+placement:
+  # latency model, all terms in ms; fit on VALIDATION only, then freeze
+  commit_rounds: 2             # 2PC: prepare + commit round trips
+  service_time_ms: 1.0         # base per-txn service time at a node
+  rho_cap: 0.95                # clamp utilization in 1/(1-rho)
+  migration_cost_ms: 5.0       # amortized cost per moved partition
+  sla_ms: 50.0
+
+workload:
+  benchmark: ycsb              # ycsb | tpcc (standard specs, unmodified)
+  zipf_theta: [0.5, 0.8, 0.99]
+  n_partitions: 64
